@@ -1,0 +1,5 @@
+Edita la pregunta: <p>
+
+<form method="post" action="/quizes/<%= quiz.id %>">
+	<% include _form.ejs %>
+</form>

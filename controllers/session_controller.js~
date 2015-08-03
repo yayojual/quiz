@@ -1,4 +1,11 @@
-var models = require('../models/models.js');
+//MW de autorización de accesos HTTP restringidos
+exports.loginRequired = function(req, res, next){
+	if(req.session.user){
+		next();
+	}else{
+		res.redirect('/login');
+	}
+};
 
 //GET /login
 exports.new = function(req, res){
@@ -26,3 +33,9 @@ exports.create = function(req, res){
 		res.redirect(req.session.redir.toString()); //redirección a path anterior a login
 	});
 };
+
+//DELETE /logout --Destruir sesión
+exports.destroy = function(req, res){
+	delete req.session.user;
+	res.redirect(req.session.redir.toString()); //redirección a path anterior a login
+}

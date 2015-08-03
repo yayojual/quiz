@@ -27,10 +27,9 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-//Para HTTP
 //var server = http.createServer(app);
 
-//Para HTTPS probar con https://localhost:8443
+//Para HTTPS
 var serverSecure = https.createServer(options, app);
 serverSecure.listen(8443, function(){
 	debug('Express server listening on port '+serverSecure.address().port);
@@ -40,7 +39,6 @@ serverSecure.listen(8443, function(){
  * Listen on provided port, on all network interfaces.
  */
 
-//Para HTTP
 //server.listen(port);
 //server.on('error', onError);
 //server.on('listening', onListening);

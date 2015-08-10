@@ -8,6 +8,15 @@ module.exports = function (sequelize, DataTypes) {
 		publicado: {
 		  type: DataTypes.BOOLEAN,
 		  defaultValue: false
-		}		
+		}
+		},
+		{
+    		classMethods: {			
+			countQuizesWithComments: function () {
+        			return this.aggregate('QuizId', 'count', {'distinct': true }).then('success',function(count) {
+					return count;
+				})
+      			}
+    		}
 		});
 }

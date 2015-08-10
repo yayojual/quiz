@@ -4,10 +4,24 @@ module.exports = function (sequelize, DataTypes) {
 		{ texto: {
 		  type: DataTypes.STRING,
 		  validate: {notEmpty: {msg: "->El texto no debe estar vacío"}}
-		}
+		},
 		publicado: {
 		  type: DataTypes.BOOLEAN,
 		  defaultValue: false
-		}		
+		}
+		},
+		{
+    		classMethods: {			
+			countQuizesWithComments: function () {
+        			return this.aggregate('QuizId', 'count', {'distinct': true }).then('success',function(count) {
+					return count;
+				})
+      			},
+			countQuizessWithoutComments: function () {
+        			return this.aggregate('QuizId', 'count', {'distinct': true }).then('success',function(count) {
+					return count;
+				})
+      			}
+    		}
 		});
 }

@@ -39,6 +39,23 @@ app.use(function(req, res, next){
 
 app.use(partials());
 
+//Logout si pasan más de 2 minutos sin peticiones HTTP
+app.use(function(req, res, next) {
+    if(req.session.user){
+        if(!req.session.tiempousuario){
+            req.session.tiempousuario=(new Date()).getTime();
+        }else{
+            if((new Date()).getTime()-req.session.tiempousuario > 120000){//más de 120000ms hay que destruir la sesión 
+                delete req.session.user;
+                delete req.session.tiempousuario;
+            }else{
+                req.session.tiempousuario=(new Date()).getTime();
+            }
+        }
+    }
+    next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler

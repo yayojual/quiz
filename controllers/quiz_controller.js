@@ -93,6 +93,9 @@ exports.update = function(req, res){
 //DELETE /quizes/:id
 exports.destroy = function(req, res){
 	req.quiz.destroy().then(function() {
+		for (var i in req.quiz.Comments){ //borra los comentarios asociados a la pregunta
+			req.quiz.Comments[i].destroy();
+		};
 		res.redirect('/quizes');
 	}).catch(function(error){next(error)});
 };
